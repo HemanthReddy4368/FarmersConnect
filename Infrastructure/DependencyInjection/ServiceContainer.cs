@@ -1,5 +1,6 @@
 ﻿using Application.Contracts;
 using FarmersConnect.Core.Entites;
+using Infrastructure.Authorization;
 using Infrastructure.Data;
 using Infrastructure.Repos;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -40,6 +41,19 @@ namespace Infrastructure.DependencyInjection
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!))
 
                 };
+            });
+
+            // Add Authorization policies
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policies.RequireAdminRole, policy =>
+                    policy.RequireRole(UserRole.Admin.ToString()));
+
+                options.AddPolicy(Policies.RequireFarmerRole, policy =>
+                    policy.RequireRole(UserRole.Farmer.ToString()));
+
+                options.AddPolicy(Policies.RequireBuyerRole, policy =>
+                    policy.RequireRole(UserRole.Buyer.ToString()));
             });
             services.AddScoped<IUser, UserRepo>();
             return services;

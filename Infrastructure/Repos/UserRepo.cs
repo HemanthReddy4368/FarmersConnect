@@ -66,16 +66,16 @@ namespace Infrastructure.Repos
             return new RegestrationResponse(true,"User Regestered Successfully!");
 
         }
-
         private string GenerateJWTToken(User getUser)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]!));
-            var credentials = new SigningCredentials(securityKey,SecurityAlgorithms.HmacSha256);
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var userClaims = new[]
             {
-                new Claim(ClaimTypes.NameIdentifier,getUser.UserId.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, getUser.UserId.ToString()),
                 new Claim(ClaimTypes.Name, getUser.Name!),
-                new Claim(ClaimTypes.Email, getUser.Email!)
+                new Claim(ClaimTypes.Email, getUser.Email!),
+                new Claim(ClaimTypes.Role, getUser.Role.ToString()) // Add role claim
             };
 
             var token = new JwtSecurityToken(
@@ -84,7 +84,7 @@ namespace Infrastructure.Repos
                 claims: userClaims,
                 expires: DateTime.Now.AddDays(1),
                 signingCredentials: credentials
-                );
+            );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
