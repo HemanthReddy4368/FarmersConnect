@@ -75,6 +75,9 @@ namespace Infrastructure.Data
                 .WithOne()
                 .HasForeignKey<Payment>(p => p.OrderId)
                 .OnDelete(DeleteBehavior.NoAction); // Change cascade behavior
+
+            // Add global query filter for soft delete
+            modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
         }
     }
 

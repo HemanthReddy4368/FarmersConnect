@@ -36,17 +36,21 @@ namespace FarmersConnect.Core.Entites
         [StringLength(200)]
         public required string Address { get; set; }
 
+        public bool IsDeleted { get; set; }
+        public DateTime? DeletedAt { get; set; }
+
         // Navigation properties
-        public virtual ICollection<Farm> Farms { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<Notification> Notifications { get; set; }
-        public virtual ICollection<Report> Reports { get; set; }
+        public virtual ICollection<Farm>? Farms { get; set; }
+        public virtual ICollection<Order>? Orders { get; set; }
+        public virtual ICollection<Notification>? Notifications { get; set; }
+        public virtual ICollection<Report>? Reports { get; set; }
     }
 
     public enum UserRole
     {
         Farmer = 1,
         Buyer = 2,
-        Admin = 3
+        Admin = 3,
+        Worker = 4
     }
 }
