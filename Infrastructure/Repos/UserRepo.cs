@@ -57,7 +57,7 @@ namespace Infrastructure.Repos
                 Name = registerUserDTO.Name,
                 Email = registerUserDTO.Email,
                 Address = registerUserDTO.Address,
-                Role = UserRole.Admin,
+                Role = UserRole.Farmer,
                 PhoneNumber = registerUserDTO.Phonenumber,
                 Password = BCrypt.Net.BCrypt.HashPassword(registerUserDTO.Password)
             });
