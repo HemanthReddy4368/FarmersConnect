@@ -56,6 +56,8 @@ namespace Infrastructure.DependencyInjection
                     policy.RequireRole(UserRole.Buyer.ToString()));
             });
             services.AddScoped<IUser, UserRepo>();
+            // Farm service registration
+            services.AddScoped<IFarm, FarmRepo>();
             return services;
         }
     }

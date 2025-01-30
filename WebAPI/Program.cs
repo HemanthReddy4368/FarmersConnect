@@ -2,7 +2,6 @@ using Infrastructure.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -14,7 +13,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:5175") // Replace with your React app's URL
+        policy.WithOrigins("http://localhost:5173") // Replace with your React app's URL
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
