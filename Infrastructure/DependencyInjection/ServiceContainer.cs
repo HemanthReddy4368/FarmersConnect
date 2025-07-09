@@ -60,6 +60,8 @@ namespace Infrastructure.DependencyInjection
             services.AddScoped<IFarm, FarmRepo>();
             // Crop service registration
             services.AddScoped<ICrop, CropRepo>();
+            // Expense service registration
+            services.AddScoped<IExpense, ExpenseRepo>();
             return services;
         }
     }

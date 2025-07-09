@@ -1,10 +1,6 @@
-﻿using FarmersConnect.Core.Entites;
+﻿using Domain.Entites;
+using FarmersConnect.Core.Entites;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
@@ -22,6 +18,7 @@ namespace Infrastructure.Data
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<Expense> Expenses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -78,6 +75,12 @@ namespace Infrastructure.Data
 
             // Add global query filter for soft delete
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
+
+            modelBuilder.Entity<Expense>()
+                .HasOne(e => e.Crop)
+                .WithMany() // Assuming a crop can have many expenses but no direct collection on Crop entity
+                .HasForeignKey(e => e.CropId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 
